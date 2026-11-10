@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Hair Dryer Simulator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Hair Dryer Simulator</h1>
+      <p>Plug in, set FAN and HEAT on the handle, or tap the snowflake for a cold shot.</p>
+    </header>
+
+    <section class="instrument" aria-label="Hair dryer controls">
+      <div class="dryer">
+        <svg id="scene" class="scene" viewBox="0 0 640 440" aria-hidden="true">
+          <defs>
+            <linearGradient id="shell" x2="0" y2="1">
+              <stop stop-color="#d6e0e8"/>
+              <stop offset=".19" stop-color="#9eacba"/>
+              <stop offset=".58" stop-color="#657382"/>
+              <stop offset="1" stop-color="#394553"/>
+            </linearGradient>
+            <linearGradient id="handle">
+              <stop stop-color="#526171"/>
+              <stop offset=".18" stop-color="#8897a5"/>
+              <stop offset=".54" stop-color="#536272"/>
+              <stop offset="1" stop-color="#303c49"/>
+            </linearGradient>
+            <linearGradient id="recess" x2="0" y2="1">
+              <stop stop-color="#121921"/>
+              <stop offset="1" stop-color="#212b36"/>
+            </linearGradient>
+            <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse">
+              <path d="M26 0H0V26" fill="none" stroke="#9eb6d4" opacity=".09"/>
+            </pattern>
+          </defs>
+          <rect width="640" height="440" fill="url(#grid)"/>
+          <ellipse cx="345" cy="419" rx="222" ry="12" fill="#0a0e13" opacity=".4"/>
+          <path d="M397 389 C397 415 251 405 193 405 H192" fill="none" stroke="#0a0e13" stroke-width="7"/>
+          <path class="cord-tail" d="M193 405 H159" stroke="#0a0e13" stroke-width="7"/>
+          <g class="plug">
+            <path d="M122 401 H135 M122 409 H135" stroke="#a9b9ca" stroke-width="3" stroke-linecap="round"/>
+            <rect x="133" y="394" width="27" height="22" rx="5" fill="#394653" stroke="#6a7c8e"/>
+          </g>
+          <rect x="59" y="381" width="40" height="48" rx="8" fill="#222b35" stroke="#465567"/>
+          <path d="M88 401 H98 M88 409 H98" stroke="#0d1218" stroke-width="4" stroke-linecap="round"/>
+          <circle class="socket-light" cx="71" cy="405" r="2.5"/>
+
+          <path d="M307 160 L481 158 Q461 184 462 217 C463 280 452 335 448 382
+                   Q447 395 433 396 L367 391 Q351 390 345 376 C334 342 329 285 328 231
+                   Q329 187 307 160Z" fill="url(#handle)" stroke="#8796a5" stroke-opacity=".65"/>
+          <path d="M456 208 C458 264 448 338 442 376" fill="none" stroke="#242c36" stroke-width="2"/>
+          <path d="M162 59 C231 66 270 82 324 78 C403 72 437 61 501 86
+                   Q539 101 565 124 Q578 141 568 166 Q556 191 528 197
+                   C472 210 374 207 329 184 C287 163 267 148 223 133 L154 112Z"
+                fill="url(#shell)" stroke="#9baab9" stroke-opacity=".68"/>
+          <path d="M175 65 C239 74 277 87 325 84 C404 79 437 67 497 91"
+                fill="none" stroke="#dce8f3" stroke-opacity=".45"/>
+          <path d="M492 84 Q538 100 565 124 Q578 141 568 166 Q556 191 528 197
+                   L513 200 Q540 186 545 156 Q550 117 492 84Z" fill="#252e3a"/>
+          <path d="M566 127 Q577 146 565 169 Q558 181 548 187"
+                fill="none" stroke="#c79475" stroke-width="3"/>
+          <ellipse cx="157" cy="85" rx="19" ry="31" transform="rotate(18 157 85)"
+                   fill="#111820" stroke="#bf957c" stroke-width="2"/>
+          <path d="M152 68 L170 72 M148 78 L167 82 M145 88 L164 92 M144 98 L160 101"
+                fill="none" stroke="#bf957c" stroke-width="2" stroke-linecap="round"/>
+
+          <path d="M348 211 H435 Q448 211 447 224 L438 350 Q437 364 424 364
+                   H365 Q353 364 351 352 C342 313 339 266 338 224 Q337 212 348 211Z"
+                fill="url(#recess)" stroke="#8393a4" stroke-opacity=".65" stroke-width="1.5"/>
+          <path d="M349 214 H434 Q443 214 443 224"
+                fill="none" stroke="#080d13" stroke-width="2" stroke-linecap="round"/>
+
+          <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="14 12">
+            <path class="air" d="M127 84 Q84 79 34 74"/>
+            <path class="air extra" d="M125 73 Q85 56 39 54 M123 95 Q76 101 32 96"/>
+          </g>
+        </svg>
+        <div class="handle-panel" role="group" aria-label="Handle controls">
+          <p id="display" class="panel-display" aria-hidden="true">OFF</p>
+          <button id="cold" class="handle-button" type="button" aria-label="Cold shot" aria-pressed="false" title="Cold shot">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20 M3.34 7l17.32 10 M3.34 17L20.66 7
+                       M9 4l3 3 3-3 M9 20l3-3 3 3 M3.6 10.6l4.1-1.1-1.1-4.1
+                       M17.4 18.6l-1.1-4.1 4.1-1.1 M3.6 13.4l4.1 1.1-1.1 4.1
+                       M17.4 5.4l-1.1 4.1 4.1 1.1"/>
+            </svg>
+          </button>
+          <button id="heat" class="handle-button" type="button" aria-label="Temperature 0 · Cool">
+            <span>HEAT</span><span class="level">0</span>
+          </button>
+          <button id="speed" class="handle-button" type="button" aria-label="Airflow 0 · Off">
+            <span>FAN</span><span class="level">0</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="power" type="button" aria-pressed="false">Plug in</button>
+        <p id="status" role="status">Unplugged · No airflow</p>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
